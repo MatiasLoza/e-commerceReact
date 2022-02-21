@@ -32,7 +32,7 @@ const NavBar = () => {
       <nav>
         <ul style={stylesUl}>
           <li style={stylesLi}><a style={stylesLinks} href='./app.js'>Inicio</a></li>
-          <li style={stylesLi}><a style={stylesLinks} href="./app.js">Lenguajes</a></li>
+          <li style={stylesLi}><a style={stylesLinks} href="./app.js">Nosotros</a></li>
         </ul>
       </nav>
     </div>

@@ -18,7 +18,6 @@ const ItemList = () => {
 
   }, []);
   const [myProd, setProd] = useState([]);
-  console.log(myProd.length)
 
   return (
     <>
