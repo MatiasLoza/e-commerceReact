@@ -9,7 +9,7 @@ const styleLogo = {
 function CartWidget() {
     return (
         <>
-            <img style={styleLogo} src={logo2}></img>
+            <img style={styleLogo} src={logo2} alt="logo de la empresa"></img>
         </>
     )
 }

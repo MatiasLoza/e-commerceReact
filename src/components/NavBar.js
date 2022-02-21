@@ -28,7 +28,7 @@ const NavBar = () => {
   return (
     <div style={stylesNav}>
       <CartWidget></CartWidget>
-      <h2>Aca va un nombre, no se cual</h2>
+      <h2>E-commerce</h2>
       <nav>
         <ul style={stylesUl}>
           <li style={stylesLi}><a style={stylesLinks} href='./app.js'>Inicio</a></li>

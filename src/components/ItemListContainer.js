@@ -1,14 +1,20 @@
+import ItemList from "./ItemList";
 
-const stylesBody = {
-    fontSize: "1rem",
-    fontWeight: "bold",
-    color: "blue"
-};
+
+const stylesContainer = {
+    display: "flex",
+    gap: "2rem",
+    alignItems: "center",
+    justifyContent: "space-around",
+    marginTop: "1rem"
+ }
 
 function ItemListContainer() {
     return (
         <>
-            <p style={stylesBody}>Hola mundo desde react!</p>
+        <div style={stylesContainer}>
+        <ItemList></ItemList>
+        </div>
         </>
     )
 }
