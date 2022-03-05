@@ -1,33 +1,63 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import Item from './Item';
+import productos from '../Data/Productos';
+import { Container,Row } from "react-bootstrap";
+import Swal from 'sweetalert';
 
 const ItemList = () => {
-  const productos = [
-    { nombre: "TV", id: "1", precio: 23500, stock: true, imagen: "/images/televisor.jpg" },
-    { nombre: "SmartPhone", id: "2", precio: 10000, stock: true, imagen: "/images/telefono.jpg" },
-    { nombre: "Tablet", id: "3", precio: 3500, stock: false, imagen: "/images/tablet.jpg" },
-  ]
 
-  useEffect(() => {
-    const promesa = new Promise((resolver) => {
-      setTimeout(() =>
-        resolver(JSON.stringify(productos))
-        ,2000)
-    },);
-    promesa.then((response) => setProd(JSON.parse(response)))
+    const { categoriaId } = useParams();
+    const [resultProductos, setResultProductos] = useState([]);
 
-  }, []);
-  const [myProd, setProd] = useState([]);
+    function onAdd(id, producto, cantidad) {
+        Swal({
+            title: 'Producto Agregado',
+            text: `Se agregó ${cantidad}  ${producto} a su carrito`,
+            icon: 'success',
+            })
+    }
 
-  return (
-    <>
-      {myProd.map((pr) => (
-        <Item item={pr} key={pr.id}></Item>
-      )
-      )}
-    </>
-  )
+    const getProductos = () =>
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (productos.length <= 0) {
+          reject("No se encontraron productos");
+        }
+        if (categoriaId > 0) {
+            console.log("por categoria: " + categoriaId);
+          const productosCategoria = productos.filter(
+            (producto) => producto.categoriaId === parseInt(categoriaId)
+          );
+          resolve(productosCategoria);
+        } else {
+          resolve(productos);
+        }
+      }, 2000);
+    });
+
+    useEffect(() => {
+        getProductos().then(
+          (result) => {setResultProductos(result);},
+          (err) => {
+            console.log(err);
+            setResultProductos([]);
+          }
+        );
+      },[categoriaId]);
+
+      return (
+        <div>
+          <Container>
+            <Row>
+              {resultProductos.map((producto) => (
+                <Item key={producto.id} item={producto} onAdd={onAdd} initial={1} />
+              ))}
+            </Row>
+          </Container>
+        </div>
+      );
+
 }
 
-
-export default ItemList
+export default ItemList;

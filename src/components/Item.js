@@ -1,38 +1,65 @@
-//rafc
-import React from 'react';
+import React, { useState } from "react";
+import { Link } from 'react-router-dom';
+import { Card, Col, Form, Button } from "react-bootstrap";
+import Swal from 'sweetalert';
 
-const stylesProd = {
-  borderStyle: "solid",
-  padding: "1rem",
-  width: "30%",
-  margin: "2rem",
- }
- const stylesImg = {
-  width: "200px",
-  height: "150px",
-  objectFit: "cover"
- }
- const itemStock = (item) =>{
-  let stock;
-  if(item.stock === true){
-     stock = "Si"
-  }else {
-    stock = "No"
-  }
-  return stock;
- }
 
-const Item = ({item}) => {
-  return (
-    <>
-    <div style={stylesProd}>
-      <h3>{item.nombre}</h3>
-      <h3>Precio: ${item.precio}</h3>
-      <h3>Stock: {itemStock(item)}</h3>
-      <img style={stylesImg} src={item.imagen} alt= "fotos del producto"></img>
-    </div>
-    </>
+const Item = ({ stock, initial, onAdd, item }) => {
+    const [count, setCount] = useState(parseInt(initial));
+    const [disponible] = useState(parseInt(item.stock));
+    const [producto] = useState(item);
 
-  )};
+    const sumar = () => {
+        if (count < disponible) {
+            setCount(count + 1);
+        } else {
+            Swal({
+                title: 'No Disponible',
+                text: 'Sin stock para la cantidad seleccionada',
+                icon: 'error',
+                
+            })
+        }
+    };
 
-export default Item
+    const restar = () => {
+        if (count > 1) {
+            setCount(count - 1);
+        } else {
+            return false;
+        }
+    };
+
+    return (
+        <>
+            <Col xs={3} key={producto.id}>
+                <Card>
+                    <Card.Body>
+                        <Card.Title></Card.Title>
+                        <Card.Text>
+                            <Link to={ `/producto/${producto.id}` }><span className="h3">{producto.title}</span></Link>
+                            <p>{producto.description}</p>
+                            <p>Precio: $ {producto.price}</p>
+                            <hr />
+                            <div className="div-img-datos">
+                            <Link to={ `/producto/${producto.id}` }>
+                            <img src={producto.imgUrl} width="250" height="250" alt={producto.description} />
+                            </Link>
+                            <br></br>
+                            <Button variant="danger" className="button" size="sm" onClick={restar}>-</Button>
+                            <Form.Control type="text" className="input" size="sm" value={count} readOnly="readonly" min="0" />
+                            <Button variant="success" className="button" size="sm" onClick={sumar}>+</Button>
+                            <hr></hr>
+                            </div>
+                            <div className="d-grid gap-2">
+                                <Button variant="primary" onClick={() => onAdd(producto.id,producto.title, count)}>Agregar al carrito</Button>
+                            </div>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+            </Col>
+        </>
+    );
+};
+
+export default Item;

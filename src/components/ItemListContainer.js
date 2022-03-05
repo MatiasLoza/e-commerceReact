@@ -1,22 +1,29 @@
-import ItemList from "./ItemList";
+import React from 'react';
+import { Container, Card, Row, Col } from "react-bootstrap";
+import ItemList from './ItemList';
 
 
-const stylesContainer = {
-    display: "flex",
-    gap: "2rem",
-    alignItems: "center",
-    justifyContent: "space-around",
-    marginTop: "1rem"
- }
-
-function ItemListContainer() {
+const ItemListContainer = () => {  
     return (
-        <>
-        <div style={stylesContainer}>
-        <ItemList></ItemList>
-        </div>
-        </>
-    )
-}
-
-export default ItemListContainer
+      <div>
+      <Container>
+        <Row>
+          <Col>
+            <Card style={{ width: "100%" }}>
+              <Card.Body>
+                <Card.Title></Card.Title>
+                <Card.Text>
+                  Lista de Productos
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>      
+      </Container>
+      <br></br>
+      <ItemList />
+    </div>   
+    );
+  };
+  
+  export default ItemListContainer;
