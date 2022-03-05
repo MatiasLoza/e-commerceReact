@@ -22,8 +22,6 @@ const NavBar = () => {
                 <NavDropdown.Item href="#action/3.1">Sobre Nosotros</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">Promociones</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.3">Contacto</NavDropdown.Item>
-                {/* <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item> */}
             </NavDropdown>
             </Nav>
             <Nav>
