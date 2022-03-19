@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext} from "react";
 import { getFirestore, getFireAuth } from "../firebase/firebase";
 import firebase from "firebase/app";
 
@@ -19,14 +19,11 @@ export const LoginProvider = ({ defaultValue = false, children }) => {
           phoneNumber: telefono
         })      
         .catch((error) => {
-          console.log(error);
-          success = false;
           mensaje = error.message;
-          return { success: success, mensaje: mensaje };
+          return { success: false, mensaje: mensaje };
         });
       })
       .catch(function (error) {
-        console.log(error);
         return { success: false, mensage: error.message };
       });
       const db = getFirestore();

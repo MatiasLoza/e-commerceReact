@@ -25,17 +25,17 @@ function Register() {
       return false;
     }
     await registrar(comprador,comprador.password);
-    login(comprador.email,comprador.password).then(() => {        
+    login(comprador.email,comprador.password)
+    .then((response) => {        
       const user = usuarioActual()
       localStorage.setItem("usuario",JSON.stringify(user));
       setUsuario(user);
       window.open("/","_self");
     })
-    .catch((err) => {
+    .catch(() => {
       Swal({
-        title: "Acceso Incorrecto",
-        text: err,
-        icon: "error",
+        title: "Usuario creado Exitosamente",
+        icon: "success",
         button: "Aceptar",
       });
       return false;
